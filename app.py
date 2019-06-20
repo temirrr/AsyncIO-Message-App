@@ -15,7 +15,7 @@ from routes import routes
 async def on_shutdown(app):
 	for ws in app['websockets']:
 		#Only closing websocket when the client closes the browser, for now
-		await ws.close(code = 1001, message'Server Shutdown, Client Closed Browser Tab')
+		await ws.close(code = 1001, message = 'Server Shutdown, Client Closed Browser Tab')
 
 app = web.Application() #inherits from dict, dict-like object, but we can't copy it
 
