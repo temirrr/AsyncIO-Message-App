@@ -8,7 +8,7 @@ import random
 uids = []
 
 class ChatList(web.View):
-	@aiohttp_jinja2.template('chat/index.html')
+	@aiohttp_jinja2.template('index.html')
 	async def get(self):
 		return {}
 

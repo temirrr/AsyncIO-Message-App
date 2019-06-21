@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Group Chat
+{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<p id='welcome'>Welcome to the chat!</p>
+<p id= 'show-id'>Your randomly generated id is {{uid}}</p>
+<div id='message-list'>
+    <p>There will be messages here</p>
+</div>
+    <p>
+        <input  type="text" id="message" autocomplete="off">
+        <input class="btn btn-primary" type="submit" id='submit' value="Send">
+    </p>
+{% endblock %}
+
+<!-- {% block footer %}
+{% endblock %} -->

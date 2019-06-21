@@ -15,12 +15,11 @@ from settings import log
 
 async def on_shutdown(app):
 	for ws in app['websockets']:
-		#Only closing websocket when the client closes the browser, for now
-		await ws.close(code = 1001, message = 'Server Shutdown, Client Closed Browser Tab')
+		await ws.close(message = 'Server Shutdown')
 
 app = web.Application() #inherits from dict, dict-like object, but we can't copy it
 
-aiohttp_jinja2.setup(app, loader=jinja2.FileSystemLoader('/templates'))
+aiohttp_jinja2.setup(app, loader=jinja2.FileSystemLoader('./templates'))
 
 #TODO: add_route edit as needed
 for route in routes:

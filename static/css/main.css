@@ -1,3 +1,28 @@
 body {
-	font: 14rem Arial serif;
+	font: 12px Arial serif;
+}
+
+.navbar {
+	background-color: #F8F9FA;
+}
+
+.footer {
+	background-color: #F8F9FA;
+}
+
+#welcome {
+	width: 20%;
+	margin: auto;
+	font: 2em Arial sans-serif bold;
+}
+
+#show-id {
+	width: 15%;
+	margin: auto;
+	font: 1em Arial serif;
+}
+
+#message-list {
+	border: 1px black solid;
+	margin: 2em;
 }
