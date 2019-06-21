@@ -25,10 +25,13 @@ class WebSocket(web.View):
 			uid = 'user{0}'.format(random.randint(1, 1001))
 		uids.append(uid)
 
-		#new response socket is added
-		self.request.app['websockets'].append(ws)
+		#broadcast joining of new user
 		for _ws in self.request.app['websockets']:
 			_ws.send_str('{0} has joined the chat'.format(uid))
+		self.request.app['websockets'].append(ws)
+
+		#send client's id to this particular client for frontend
+		await ws.send_str('{"myID": {0}}'.format(uid))
 
 		async for msg in ws:
 			if msg.type == WSMsgType.TEXT:
