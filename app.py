@@ -38,6 +38,7 @@ TODO (if needed):
 #on_cleanup handler is called when Subscriber, i.e. user, disconnects
 app.on_cleanup.append(on_shutdown)
 app['websockets'] = []
+app['uids'] = [] # 'uid' stands for 'User ID'
 
 log.debug('server start')
 web.run_app(app)

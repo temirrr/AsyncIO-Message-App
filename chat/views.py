@@ -5,8 +5,6 @@ from settings import log
 
 import random
 
-uids = []
-
 class ChatList(web.View):
 	@aiohttp_jinja2.template('index.html')
 	async def get(self):
@@ -22,8 +20,10 @@ class WebSocket(web.View):
 
 		#id generation
 		uid = 'user{0}'.format(random.randint(1, 1001))
+		uids = self.request.app['uids']
 		while uid in uids:
 			uid = 'user{0}'.format(random.randint(1, 1001))
+		uids.append(uid)
 
 		#new response socket is added
 		self.request.app['websockets'].append(ws)
