@@ -7,10 +7,11 @@ import jinja2
 
 from aiohttp_session import session_middleware
 from aiohttp_session.redis_storage import RedisStorage
-from middlewares import authorize
 import hashlib
 
 from routes import routes
+
+from settings import log
 
 async def on_shutdown(app):
 	for ws in app['websockets']:
@@ -26,7 +27,7 @@ for route in routes:
 	#add named routers for later retrieving them by app.router[name]
 	app.router.add_route(route[0], route[1], route[2], name = route[3])
 app['static_root_url'] = '/static'
-app.router.add_static('/static', '/static', name = 'static')
+app.router.add_static('/static', 'static', name = 'static')
 
 '''
 TODO (if needed):

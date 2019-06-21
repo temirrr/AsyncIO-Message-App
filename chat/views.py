@@ -1,6 +1,8 @@
 import aiohttp_jinja2
 from aiohttp import web, WSMsgType
 
+from settings import log
+
 import random
 
 uids = []
@@ -34,7 +36,7 @@ class WebSocket(web.View):
 					await ws.close()
 				else:
 					for _ws in self.request.app['websockets']:
-					_ws.send_str('{"user": {0}, "msg": {1}}'.format(uid, msg.data))
+						_ws.send_str('{"user": {0}, "msg": {1}}'.format(uid, msg.data))
 			elif msg.type == WSMsgType.ERROR:
 				log.debug('ws connection closed with exception {0}'.format(ws.exception()))
 
