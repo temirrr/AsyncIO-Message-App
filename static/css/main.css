@@ -25,4 +25,12 @@ body {
 #message-list {
 	border: 1px black solid;
 	margin: 2em;
+	width: 80%;
+	height: 50em;
+	margin: auto;
+	overflow-y: scroll;
+}
+
+#msg-input {
+	margin: 0px;
 }
