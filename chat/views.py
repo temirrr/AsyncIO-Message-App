@@ -24,14 +24,18 @@ class WebSocket(web.View):
 		while uid in uids:
 			uid = 'user{0}'.format(random.randint(1, 1001))
 		uids.append(uid)
+		self.request.app['uids'] = uids
 
 		#broadcast joining of new user
 		for _ws in self.request.app['websockets']:
-			_ws.send_str('{0} has joined the chat'.format(uid))
+			await _ws.send_str('"%s" has joined the chat' % (uid))
+			log.debug('"%s" has joined the chat' % (uid))
 		self.request.app['websockets'].append(ws)
 
 		#send client's id to this particular client for frontend
-		await ws.send_str('{"myID": {0}}'.format(uid))
+		log.debug('before sending UID')
+		await ws.send_str('{"myID": "%s"}' % (uid))
+		log.debug('after sending UID')
 
 		async for msg in ws:
 			if msg.type == WSMsgType.TEXT:
@@ -39,13 +43,13 @@ class WebSocket(web.View):
 					await ws.close()
 				else:
 					for _ws in self.request.app['websockets']:
-						await _ws.send_str('{"user": {0}, "msg": {1}}'.format(uid, msg.data))
+						await _ws.send_str('{"user": "%s", "msg": "%s"}' % (uid, msg.data))
 			elif msg.type == WSMsgType.ERROR:
 				log.debug('ws connection closed with exception {0}'.format(ws.exception()))
 
 		self.request.app['websockets'].remove(ws)
 		for _ws in self.request.app['websockets']:
-			_ws.send_str('{0} has left the chat')
+			await _ws.send_str('"%s" has left the chat' % (uid))
 		log.debug('websocket connection closed')
 
 		return ws

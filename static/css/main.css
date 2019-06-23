@@ -16,22 +16,28 @@ body {
 
 .message-box {
 	background-color: #F8F9FA;
+	border-radius: 0.5rem;
 }
 
 .own-message-box {
 	background-color: #00B8FC;
+	border-radius: 0.2rem;
 }
 
 #welcome {
-	width: 30%;
-	margin: auto;
+	/*width: 30%;
+	margin: auto;*/
 	font: 2em Arial sans-serif bold;
 }
 
 #show-id {
-	width: 15%;
-	margin: auto;
+	/*width: 15%;
+	margin: auto;*/
 	font: 1em Arial serif;
+}
+
+#uid {
+	font: bold;
 }
 
 #message-list {

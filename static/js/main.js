@@ -1,6 +1,6 @@
-$(document).ready(function) {
-	var userID = '';
-	var sock = {};
+$(document).ready( function() {
+	let userID = '';
+	let sock = {};
 	try{
 		sock = new WebSocket(`ws://${window.location.host}/ws`)
 	} catch {
@@ -8,7 +8,7 @@ $(document).ready(function) {
 	}
 
 	function getOwnMessage(msg, time) {
-		return `<div class="message-list">
+		return `<div class="message-list-item">
     	<div class="row">
     		<div class="col-sm-6"></div>
 	    	<div class="col-sm-5 text-right own-message-box">
@@ -41,13 +41,13 @@ $(document).ready(function) {
 
 	function displayUserID(uid) {
 		const showID = $(' #show-id ');
-		showID.text(`Your randomly generated id is ${uid}`);
+		showID.html(`Your randomly generated id: <span id='uid'>${uid}</span>`);
 		userID = uid;
 	}
 
 	function showMessage(message) {
 		const msgBox = $(' #message-list ');
-		const msgHTML = ''
+		let msgHTML = ''
 
 		const date = new Date();
 		const hours = date.getHours();
@@ -64,12 +64,14 @@ $(document).ready(function) {
 			if (!!msgObj.user && msgObj.msg) {
 				const id = msgObj.user;
 				const msg = msgObj.msg;
+
 				if (id === userID) {
-					msgHTML = getFriendsMessage(id, msg, timeString)
+					msgHTML = getOwnMessage(msg, timeString)
 				} else {
-					msgHTML = getOwnMessage(msg, timeString);
+					msgHTML = getFriendsMessage(id, msg, timeString);
 				};
 			} else if (!!msgObj.myID) {
+				//SOME DIRTY CODE HERE
 				displayUserID(msgObj.myID);
 				return;
 			} else {
@@ -82,4 +84,51 @@ $(document).ready(function) {
 		msgBox.append(msgHTML);
 		msgBox.scrollTop( msgBox.height() );
 	}
-}
+
+	//on Enter-key or Send-button click
+	function sendMessage() {
+		const msgBox = $(' #message ');
+		const msg = msgBox.val();
+		if (userID === '') {
+			alert('You did not receive ID due to system error');
+		} else if (!msg) {
+			return;
+		}else {
+			sock.send(msg);
+			msgBox.val('').focus();
+		}
+	}
+
+    sock.onopen = function(){
+        showMessage('Connection to server started');
+    };
+
+
+    $(' #submit ').on('click', function() {
+        sendMessage();
+    });
+
+    $('#message').keyup(function(e){
+        if(e.keyCode == 13){
+            sendMessage();
+        }
+    });
+
+    sock.onmessage = function(event) {
+        showMessage(event.data);
+    };
+
+    sock.onclose = function(event){
+        if(event.wasClean){
+            sock.send('Clean connection end');
+        }else{
+            sock.send('Connection broken');
+        }
+    };
+
+    sock.onerror = function(error){
+        sock.send(error);
+    };
+
+    $(' #message ').focus();
+});

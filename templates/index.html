@@ -7,12 +7,16 @@ Group Chat
 {% block head %}
 {% endblock %}
 
+{% block script %}
+<script src="{{ static('js/main.js') }}"></script>
+{% endblock %}
+
 {% block content %}
-<p id='welcome'>Welcome to the chat!</p>
-<p id= 'show-id'></p>
+<p class="text-center" id='welcome'>Welcome to the chat!</p>
+<p class="text-center" id= 'show-id'></p>
 
 <div class='container-fluid' id='message-list'>
-    <div class="row message-list-item">
+    <!-- <div class="row message-list-item">
     	<div class="col-sm-2"></div>
     	<div class="col-sm-8 text-center">
     		User234 has joined the chat
@@ -31,6 +35,8 @@ Group Chat
 	    	<div class="col-sm-6"></div>
 	    </div>
     </div>
+
+    <div class="message-list">
     	<div class="row">
     		<div class="col-sm-6"></div>
 	    	<div class="col-sm-5 text-right own-message-box">
@@ -40,17 +46,13 @@ Group Chat
 	    		Time Only
 	    	</div>
 	    </div>
-    <div>
-    	
-    </div>
+    </div> -->
 </div>
 
 <br>
 
 <div class='container-fluid row' id='msg-input'>
     <input  class="col-sm-10" type="text" id="message" autocomplete="off">
-    <input class="col-sm-2 btn btn-primary" type="submit" id='submit' value="Send">
-</div>
-
-<script src="{{ static('js/main.js') }}"></script>    
+    <button class="col-sm-2 btn btn-primary" id="submit">Send</button>
+</div>    
 {% endblock %}
