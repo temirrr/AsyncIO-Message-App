@@ -1,6 +1,8 @@
 import aiohttp_jinja2
 from aiohttp import web, WSMsgType
 
+from aiohttp_session import get_session
+
 from settings import log
 
 import random
@@ -16,7 +18,7 @@ class WebSocket(web.View):
 		ws = web.WebSocketResponse()
 		await ws.prepare(self.request)
 
-		#session might need to be instantiated here
+		session = await get_session(self.request)
 
 		#id generation
 		uid = 'user{0}'.format(random.randint(1, 1001))

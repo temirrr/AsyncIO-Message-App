@@ -5,9 +5,9 @@ import aiohttp_debugtoolbar
 import aiohttp_jinja2
 import jinja2
 
-from aiohttp_session import session_middleware
+import aiohttp_session
 from aiohttp_session.redis_storage import RedisStorage
-import hashlib
+import aioredis
 
 from routes import routes
 
@@ -17,16 +17,25 @@ async def on_shutdown(app):
 	for ws in app['websockets']:
 		await ws.close(message = 'Server Shutdown')
 
-app = web.Application() #inherits from dict, dict-like object, but we can't copy it
+async def init():
+	app = web.Application()
+	aiohttp_jinja2.setup(app, loader=jinja2.FileSystemLoader('./templates'))
+	redis = await aioredis.create_pool(('localhost', 6379))
+	storage = aiohttp_session.redis_storage.RedisStorage(redis)
+	aiohttp_session.setup(app, storage)
 
-aiohttp_jinja2.setup(app, loader=jinja2.FileSystemLoader('./templates'))
+	for route in routes:
+		app.router.add_route(route[0], route[1], route[2], name = route[3])
+	app['static_root_url'] = '/static'
+	app.router.add_static('/static', 'static', name = 'static')
 
-#TODO: add_route edit as needed
-for route in routes:
-	#add named routers for later retrieving them by app.router[name]
-	app.router.add_route(route[0], route[1], route[2], name = route[3])
-app['static_root_url'] = '/static'
-app.router.add_static('/static', 'static', name = 'static')
+	app.on_cleanup.append(on_shutdown)
+	app['websockets'] = []
+	app['uids'] = [] # 'uid' stands for 'User ID'
+
+	return app
+
+
 
 '''
 TODO (if needed):
@@ -34,14 +43,8 @@ TODO (if needed):
 2. Add ORM peewee
 '''
 
-
-#on_cleanup handler is called when Subscriber, i.e. user, disconnects
-app.on_cleanup.append(on_shutdown)
-app['websockets'] = []
-app['uids'] = [] # 'uid' stands for 'User ID'
-
 log.debug('server start')
-web.run_app(app)
+web.run_app(init())
 log.debug('server end')
 
 
