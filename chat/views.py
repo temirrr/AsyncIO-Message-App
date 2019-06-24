@@ -7,11 +7,15 @@ from settings import log
 
 import random
 
-class ChatList(web.View):
-	@aiohttp_jinja2.template('index.html')
+class GroupGeneral(web.View):
+	@aiohttp_jinja2.template('groups/general.html')
 	async def get(self):
 		return {}
 
+class GroupInterns(web.View):
+	@aiohttp_jinja2.template('groups/interns.html')
+	async def get(self):
+		return {}
 
 class WebSocket(web.View):
 	async def get(self):

@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Group Chat
+{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block script %}
+<script src="{{ static('js/interns.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<p class="text-center" id='welcome'>Welcome to the chat!</p>
+<p class="text-center" id= 'show-id'></p>
+
+<div class="container-fluid row message-groups">
+	<div class="col-sm-2 text-center">
+		<div class="group-item text-center" id="group-general">
+			General
+		</div>
+		<div class="group-item text-center" id="group-interns">
+			Summer 2019 Interns
+		</div>
+	</div>
+	<div class="col-sm-8 message-groups-chatting">
+		<div class='container-fluid' id='message-list'>
+		    <!-- <div class="row message-list-item">
+		    	<div class="col-sm-2"></div>
+		    	<div class="col-sm-8 text-center">
+		    		User234 has joined the chat
+		    	</div>
+		    	<div class="col-sm-2"></div>
+		    </div>
+
+		    <div class="message-list-item">
+		    	<div class="row">
+			    	<div class="col-sm-1 text-center">
+			    		UserID, Time
+			    	</div>
+			    	<div class="col-sm-5 text-left message-box">
+			    		Message
+			    	</div>
+			    	<div class="col-sm-6"></div>
+			    </div>
+		    </div>
+
+		    <div class="message-list">
+		    	<div class="row">
+		    		<div class="col-sm-6"></div>
+			    	<div class="col-sm-5 text-right own-message-box">
+			    		My Message
+			    	</div>
+			    	<div class="col-sm-1 text-center">
+			    		Time Only
+			    	</div>
+			    </div>
+		    </div> -->
+		</div>
+
+		<br>
+
+		<div class='container-fluid row' id='msg-input'>
+		    <input  class="col-sm-10" type="text" id="message" autocomplete="off">
+		    <button class="col-sm-2 btn btn-primary" id="submit">Send</button>
+		</div> 
+	</div>
+	<div class="col-sm-2 text-center">
+		<div class="advertisement">
+			<h3>Domino Pizza</h3>
+			<img src="static/img/c2b849a8-0503-47e0-8b15-5ed16150ee8a.jpg" id="pizza-image" />
+			<p>Best Pizza franchize in Korea</p>
+			<p>Call now: <b>010-7777-0000</b></p>
+		</div>
+		<div class="advertisement">
+			<h3>Place Your Add here</h3>
+			<ul>
+				<li>$10 per day only </li>
+				<li>1,000,000 active users visit our site daily</li>
+			</ul>
+			<p>Don't miss the chance and call: <b>010-3535-3535</b></p>
+		</div>
+	</div>
+</div>   
+{% endblock %}
