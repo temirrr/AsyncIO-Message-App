@@ -11,6 +11,9 @@ Temirlan Myrzakhmetov, Lablup Bootcamp, Task1
 
 Respective instructions for Windows can be found on the Internet.
 
+- Later on, if you want to shut the Redis server down, use the "redis-cli shutdown" command.
+- In case you want to check whether the server is running, use the "redis-cli" command. You can also use "redis-cli ping" command and get "PONG" in response in case server is running.
+
 ### Server Start
 - Run "python ./app.py" from the root folder. Note that it will occupy one of terminal windows.
 
