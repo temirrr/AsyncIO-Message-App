@@ -1,6 +1,7 @@
-from chat.views import ChatList, WebSocket
+from chat.views import GroupGeneral, GroupInterns, WebSocket
 
 routes = [
-	('GET', '/', ChatList, 'main'),
+	('GET', '/', GroupGeneral, 'general'),
+	('GET', '/interns', GroupInterns, 'interns'),
 	('GET', '/ws', WebSocket, 'chat'),
 ]

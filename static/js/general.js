@@ -130,5 +130,9 @@ $(document).ready( function() {
         sock.send(error);
     };
 
+    $(' #group-interns ').on('click', function() {
+    	window.location.href='interns';
+    })
+
     $(' #message ').focus();
 });
