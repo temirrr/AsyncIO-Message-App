@@ -1,9 +1,10 @@
-from chat.views import GroupGeneral, GroupInterns, WebSocket
+from chat.views import GroupGeneral, GroupInterns, WebSocketGeneral, WebSocketInterns
 from auth.views import Login
 
 routes = [
 	('GET', '/', GroupGeneral, 'general'),
 	('GET', '/interns', GroupInterns, 'interns'),
-	('GET', '/ws', WebSocket, 'chat'),
+	('GET', '/wsgeneral', WebSocketGeneral, 'wsgeneral'),
+	('GET', '/wsinterns', WebSocketInterns, 'wsinterns'),
 	('GET', '/login', Login, 'login')
 ]

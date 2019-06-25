@@ -2,9 +2,9 @@ $(document).ready( function() {
 	let userID = '';
 	let sock = {};
 	try{
-		sock = new WebSocket(`ws://${window.location.host}/ws`)
+		sock = new WebSocket(`ws://${window.location.host}/wsgeneral`)
 	} catch {
-		sock = new WebSocket(`wss://${window.location.host}/ws`)
+		sock = new WebSocket(`wss://${window.location.host}/wsgeneral`)
 	}
 
 	function getOwnMessage(msg, time) {
@@ -40,9 +40,9 @@ $(document).ready( function() {
 	}
 
 	function displayUserID(uid) {
+		userID = uid;
 		const showID = $(' #show-id ');
 		showID.html(`Your randomly generated id: <span id='uid'>${uid}</span>`);
-		userID = uid;
 	}
 
 	function showMessage(message) {
@@ -72,7 +72,9 @@ $(document).ready( function() {
 				};
 			} else if (!!msgObj.myID) {
 				//SOME DIRTY CODE HERE
+				console.log(userID);
 				displayUserID(msgObj.myID);
+				console.log(userID);
 				return;
 			} else {
 				msgHTML = getGeneralMessage(message);
@@ -130,8 +132,12 @@ $(document).ready( function() {
         sock.send(error);
     };
 
+    $(' #group-general ').on('click', function() {
+    	window.location.href='/';
+    })
+
     $(' #group-interns ').on('click', function() {
-    	window.location.href='interns';
+    	window.location.href='/interns';
     })
 
     $(' #message ').focus();

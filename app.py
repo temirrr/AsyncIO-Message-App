@@ -8,6 +8,7 @@ import jinja2
 import aiohttp_session
 from aiohttp_session.redis_storage import RedisStorage
 import aioredis
+from middlewares import authorize
 
 from routes import routes
 
@@ -23,6 +24,7 @@ async def init():
 	redis = await aioredis.create_pool(('localhost', 6379))
 	storage = aiohttp_session.redis_storage.RedisStorage(redis)
 	aiohttp_session.setup(app, storage)
+	app.middlewares.append(authorize)
 
 	for route in routes:
 		app.router.add_route(route[0], route[1], route[2], name = route[3])
@@ -30,7 +32,8 @@ async def init():
 	app.router.add_static('/static', 'static', name = 'static')
 
 	app.on_cleanup.append(on_shutdown)
-	app['websockets'] = []
+	app['websockets_general'] = []
+	app['websockets_interns'] = []
 	app['uids'] = [] # 'uid' stands for 'User ID'
 
 	return app
