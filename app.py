@@ -29,7 +29,7 @@ async def init():
 	for route in routes:
 		app.router.add_route(route[0], route[1], route[2], name = route[3])
 	app['static_root_url'] = '/static'
-	app.router.add_static('/static', 'static', name = 'static')
+	app.router.add_static('/static', 'static', name = 'static', show_index=True, follow_symlinks=True, append_version=True)
 
 	app.on_cleanup.append(on_shutdown)
 	app['websockets_general'] = []
