@@ -26,6 +26,17 @@ Group General
 	</div>
 	<div class="col-sm-8 message-groups-chatting">
 		<div class='container-fluid' id='message-list'>
+			{% for message in messages %}
+				{% if message['from_user'] -%}
+					{% if message['own'] -%}
+						Own Message
+					{% else -%}
+						Message From Friend
+					{%- endif %}
+				{% else -%}
+				    General Message
+				{%- endif %}
+    		{% endfor %}
 		    <!-- <div class="row message-list-item">
 		    	<div class="col-sm-2"></div>
 		    	<div class="col-sm-8 text-center">
