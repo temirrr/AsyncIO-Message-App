@@ -56,18 +56,13 @@ class WebSocketGeneral(web.View):
 		async with pool.acquire() as conn:
 			async with conn.cursor() as cur:
 				#broadcast joining of new user
-				join = ('"%s has joined the chat"' % (uid)) #message
-				json_join = '{{"msg": {0}}}'.format(join)
-				await cur.execute("INSERT INTO group_general (messages) VALUES ('{0}');".format(json_join))
-
+				join_msg = ('"%s has joined the chat"' % (uid)) #message
 				for _ws in self.request.app['websockets_general']:
-					await _ws.send_str(join)
+					await _ws.send_str(join_msg)
 				self.request.app['websockets_general'].append(ws)
 
 				#send client's id to this particular client for frontend
-				log.debug('before sending UID')
 				await ws.send_str('{"myID": "%s"}' % (uid))
-				log.debug('after sending UID')
 
 				async for msg in ws:
 					if msg.type == WSMsgType.TEXT:
@@ -82,14 +77,11 @@ class WebSocketGeneral(web.View):
 					elif msg.type == WSMsgType.ERROR:
 						log.debug('ws connection closed with exception {0}'.format(ws.exception()))
 
+				#broadcast leaving of the user
 				self.request.app['websockets_general'].remove(ws)
-				leave = ('"%s has left the chat"' % (uid)) #message
-				json_leave = '{{"msg": {0}}}'.format(leave)
-				await cur.execute("INSERT INTO group_general (messages) VALUES ('{0}');".format(json_leave))
-
+				leave_msg = ('"%s has left the chat"' % (uid)) #message
 				for _ws in self.request.app['websockets_general']:
-					await _ws.send_str('"%s" has left the chat' % (uid))
-				log.debug('websocket connection closed')
+					await _ws.send_str(leave_msg)
 
 				return ws
 
@@ -102,15 +94,13 @@ class WebSocketInterns(web.View):
 		uid = session.get('uid')
 
 		#broadcast joining of new user
+		join_msg = ('"%s has joined the chat"' % (uid)) #message
 		for _ws in self.request.app['websockets_interns']:
-			await _ws.send_str('"%s" has joined the chat' % (uid))
-			log.debug('"%s" has joined the chat' % (uid))
+			await _ws.send_str(join_msg)
 		self.request.app['websockets_interns'].append(ws)
 
 		#send client's id to this particular client for frontend
-		log.debug('before sending UID')
 		await ws.send_str('{"myID": "%s"}' % (uid))
-		log.debug('after sending UID')
 
 		async for msg in ws:
 			if msg.type == WSMsgType.TEXT:
@@ -122,10 +112,11 @@ class WebSocketInterns(web.View):
 			elif msg.type == WSMsgType.ERROR:
 				log.debug('ws connection closed with exception {0}'.format(ws.exception()))
 
+		#broadcast leaving of the user
 		self.request.app['websockets_interns'].remove(ws)
+		leave_msg = ('"%s has left the chat"' % (uid)) #message
 		for _ws in self.request.app['websockets_interns']:
-			await _ws.send_str('"%s" has left the chat' % (uid))
-		log.debug('websocket connection closed')
+			await _ws.send_str(leave_msg)
 
 		return ws
 
