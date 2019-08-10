@@ -42,7 +42,7 @@ $(document).ready( function() {
 	function displayUserID(uid) {
 		userID = uid;
 		const showID = $(' #show-id ');
-		showID.html(`Your randomly generated id: <span id='uid'>${uid}</span>`);
+		showID.html(`Your randomly generated id: <b id='uid'>${uid}</b>`);
 	}
 
 	function showMessage(message) {

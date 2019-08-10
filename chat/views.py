@@ -11,6 +11,7 @@ from settings import log
 from chat.models import Message
 
 import random
+from datetime import datetime
 
 class GroupGeneral(web.View):
 	@aiohttp_jinja2.template('groups/general.html')
@@ -44,49 +45,46 @@ class GroupInterns(web.View):
 
 class WebSocketGeneral(web.View):
 	async def get(self):
-		db_str = 'dbname=postgres user=temirlanmyrzakhmetov password=timkabro7 host=127.0.0.1 port=5432'
-
+		message = Message()
 		ws = web.WebSocketResponse()
 		await ws.prepare(self.request)
 
 		session = await get_session(self.request)
 		uid = session.get('uid')
 
-		pool = await aiopg.create_pool(db_str)
-		async with pool.acquire() as conn:
-			async with conn.cursor() as cur:
-				#broadcast joining of new user
-				join_msg = ('"%s has joined the chat"' % (uid)) #message
-				for _ws in self.request.app['websockets_general']:
-					await _ws.send_str(join_msg)
-				self.request.app['websockets_general'].append(ws)
+		#broadcast joining of new user
+		join_msg = ('"%s has joined the chat"' % (uid)) #message
+		for _ws in self.request.app['websockets_general']:
+			await _ws.send_str(join_msg)
+		self.request.app['websockets_general'].append(ws)
 
-				#send client's id to this particular client for frontend
-				await ws.send_str('{"myID": "%s"}' % (uid))
+		#send client's id to this particular client for frontend
+		await ws.send_str('{"myID": "%s"}' % (uid))
 
-				async for msg in ws:
-					if msg.type == WSMsgType.TEXT:
-						if msg.data == 'exit-chat':
-							await ws.close()
-						else:
-							json_message = '{{"from_user": "yes", "uid": "{0}", "msg": "{1}"}}'.format(uid, msg.data)
-							await cur.execute("INSERT INTO group_general (messages) VALUES ('{0}');".format(json_message))
+		async for msg in ws:
+			if msg.type == WSMsgType.TEXT:
+				if msg.data == 'exit-chat':
+					await ws.close()
+				else:
+					json_message = '{{"from_user": "yes", "uid": "{0}", "msg": "{1}"}}'.format(uid, msg.data)
+					await message.send_message('group_general', json_message)
 
-							for _ws in self.request.app['websockets_general']:
-								await _ws.send_str('{"user": "%s", "msg": "%s"}' % (uid, msg.data))
-					elif msg.type == WSMsgType.ERROR:
-						log.debug('ws connection closed with exception {0}'.format(ws.exception()))
+					for _ws in self.request.app['websockets_general']:
+						await _ws.send_str('{"user": "%s", "msg": "%s"}' % (uid, msg.data))
+			elif msg.type == WSMsgType.ERROR:
+				log.debug('ws connection closed with exception {0}'.format(ws.exception()))
 
-				#broadcast leaving of the user
-				self.request.app['websockets_general'].remove(ws)
-				leave_msg = ('"%s has left the chat"' % (uid)) #message
-				for _ws in self.request.app['websockets_general']:
-					await _ws.send_str(leave_msg)
+		#broadcast leaving of the user
+		self.request.app['websockets_general'].remove(ws)
+		leave_msg = ('"%s has left the chat"' % (uid)) #message
+		for _ws in self.request.app['websockets_general']:
+			await _ws.send_str(leave_msg)
 
-				return ws
+		return ws
 
 class WebSocketInterns(web.View):
 	async def get(self):
+		message = Message()
 		ws = web.WebSocketResponse()
 		await ws.prepare(self.request)
 
