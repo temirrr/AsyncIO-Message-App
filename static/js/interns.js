@@ -49,16 +49,6 @@ $(document).ready( function() {
 		const msgBox = $(' #message-list ');
 		let msgHTML = ''
 
-		const date = new Date();
-		const hours = date.getHours();
-		const minutes = date.getMinutes();
-		const timeString = `${hours}:${minutes}`;		
-
-		/*No need for, I think
-		const day = date.getDate();
-		const month = date.getMonth(); //January is 0
-		const dateString = `${month}/${day}`; */
-
 		try{
 			const msgObj = JSON.parse(message)
 			if (!!msgObj.user && msgObj.msg) {

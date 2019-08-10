@@ -12,6 +12,7 @@ from chat.models import Message
 
 import random
 from datetime import datetime
+from dateutil.tz import tzutc
 
 class GroupGeneral(web.View):
 	@aiohttp_jinja2.template('groups/general.html')
@@ -66,11 +67,19 @@ class WebSocketGeneral(web.View):
 				if msg.data == 'exit-chat':
 					await ws.close()
 				else:
-					json_message = '{{"from_user": "yes", "uid": "{0}", "msg": "{1}"}}'.format(uid, msg.data)
+					t = datetime.now(tzutc())
+					format_str = "%H:%M"
+					t_string = t.strftime(format_str)
+
+					json_message = '{{"from_user": "yes",\
+									  "uid": "{0}",\
+									  "msg": "{1}",\
+									  "time": "{2}"}}'.format(uid, msg.data, t_string)
+					log.debug(json_message)
 					await message.send_message('group_general', json_message)
 
 					for _ws in self.request.app['websockets_general']:
-						await _ws.send_str('{"user": "%s", "msg": "%s"}' % (uid, msg.data))
+						await _ws.send_str('{"user": "%s", "msg": "%s", "time": "%s"}' % (uid, msg.data, t_string))
 			elif msg.type == WSMsgType.ERROR:
 				log.debug('ws connection closed with exception {0}'.format(ws.exception()))
 
@@ -105,8 +114,19 @@ class WebSocketInterns(web.View):
 				if msg.data == 'exit-chat':
 					await ws.close()
 				else:
+					t = datetime.now(tzutc())
+					format_str = "%H:%M"
+					t_string = t.strftime(format_str)
+
+					json_message = '{{"from_user": "yes",\
+									  "uid": "{0}",\
+									  "msg": "{1}",\
+									  "time": "{2}"}}'.format(uid, msg.data, t_string)
+					log.debug(json_message)
+					await message.send_message('group_interns', json_message)
+
 					for _ws in self.request.app['websockets_interns']:
-						await _ws.send_str('{"user": "%s", "msg": "%s"}' % (uid, msg.data))
+						await _ws.send_str('{"user": "%s", "msg": "%s", "time": "%s"}' % (uid, msg.data, t_string))
 			elif msg.type == WSMsgType.ERROR:
 				log.debug('ws connection closed with exception {0}'.format(ws.exception()))
 

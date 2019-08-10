@@ -26,6 +26,43 @@ Group Interns
 	</div>
 	<div class="col-sm-8 message-groups-chatting">
 		<div class='container-fluid' id='message-list'>
+			{% for message in messages %}
+				{% if message['from_user'] -%}
+					{% if message['own'] -%}
+						<div class="message-list-item">
+							<div class="row">
+								<div class="col-sm-6"></div>
+								<div class="col-sm-5 text-right own-message-box">
+									{{message['msg']}}
+								</div>
+								<div class="col-sm-1 text-center">
+									{{message['time']}}
+								</div>
+							</div>
+						</div>
+					{% else -%}
+						<div class="message-list-item">
+							<div class="row">
+								<div class="col-sm-1 text-center">
+									{{message['uid']}}, {{message['time']}}
+								</div>
+								<div class="col-sm-5 text-left message-box">
+									{{message['msg']}}
+								</div>
+								<div class="col-sm-6"></div>
+							</div>
+						</div>
+					{%- endif %}
+				{% else -%}
+					<div class="row message-list-item">
+						<div class="col-sm-2"></div>
+						<div class="col-sm-8 text-center">
+							{{message['msg']}}
+						</div>
+						<div class="col-sm-2"></div>
+					</div>
+				{%- endif %}
+    		{% endfor %}
 		    <!-- <div class="row message-list-item">
 		    	<div class="col-sm-2"></div>
 		    	<div class="col-sm-8 text-center">
@@ -46,7 +83,7 @@ Group Interns
 			    </div>
 		    </div>
 
-		    <div class="message-list">
+		    <div class="message-list-item">
 		    	<div class="row">
 		    		<div class="col-sm-6"></div>
 			    	<div class="col-sm-5 text-right own-message-box">
