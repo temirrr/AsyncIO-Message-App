@@ -1,3 +1,4 @@
+//OLD VERSION, WHEN THERE WAS ONLY SINGLE CHAT-GROUP
 $(document).ready( function() {
 	let userID = '';
 	let sock = {};

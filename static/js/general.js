@@ -94,6 +94,7 @@ $(document).ready( function() {
 		if (userID === '') {
 			alert('You did not receive ID due to system error');
 		} else if (!msg) {
+			// do not send empty messages
 			return;
 		}else {
 			sock.send(msg);
@@ -102,7 +103,8 @@ $(document).ready( function() {
 	}
 
     sock.onopen = function(){
-        showMessage('Connection to server started');
+		//Connection to server started
+        showMessage('Welcome back');
     };
 
 

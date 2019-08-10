@@ -3,7 +3,8 @@ import aiopg
 
 class Message():
 	def __init__(self, **kwargs):
-		self.db_str = 'dbname=postgres user=postgres password=timkabro7 host=127.0.0.1 port=5002'
+		#self.db_str = 'dbname=postgres user=postgres password=timkabro7 host=127.0.0.1 port=5002'
+		self.db_str = 'dbname=postgres user=temirlanmyrzakhmetov password=timkabro7 host=127.0.0.1 port=5432'
 
 	async def get_messages(self, table_name):
 	    pool = await aiopg.create_pool(self.db_str)
