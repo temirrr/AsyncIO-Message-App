@@ -1,5 +1,9 @@
-# Messaging App
+# AsyncIO Message App
 This is simple messaging app, in which users can communicate in chatting groups.
+
+TODO: update the UI slightly: message groups buttons + make window scroll down on window additions.
+TODO: add descroption about which technology stack I used here.
+TODO: record GIFs and add them to GitHib repo.
 
 If you want to try using it:
 - Clone the repository to your machine.
@@ -24,7 +28,7 @@ Respective instructions for Windows can be found on the Internet.
 - Run postgresql.
 - You can change `db_str` variable in "chat/models.py" file's `Message` class to fit your postgresql instance's username, dbname, password, port, etc.
 
-## Package Installation
+### Package Installation
 - Firstly, create virtual environment inside the repository. One way of doing it is by using _pyenv_.
 - Then, install all the packages by running the command `pip install -U -r requirements.txt`.
 
