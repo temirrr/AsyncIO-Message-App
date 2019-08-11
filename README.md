@@ -1,4 +1,4 @@
-![AsyncIO Message App](https://github.com/temirrr/AsyncIO-Message-App/tree/master/static/img/logo.png)
+![AsyncIO Message App](static/img/logo.png)
 ---
 This is simple messaging app with common chatting groups.
 
