@@ -24,11 +24,24 @@ body {
 	border-radius: 0.2rem;
 }
 
+.group-item-selected {
+	width: 100%;
+	height: 4rem;
+	padding: 1.5rem;
+	border-bottom: 1px #F8F9FA solid;
+	background-color: #F8F9FA;
+}
+
+/*not selected groups*/
 .group-item {
 	width: 100%;
 	height: 4rem;
 	padding: 1.5rem;
 	border-bottom: 1px #F8F9FA solid;
+}
+
+.group-item:hover {
+	background-color: #F8F9FA;
 }
 
 .advertisement {
