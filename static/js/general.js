@@ -94,7 +94,6 @@ $(document).ready( function() {
 	}
 
     sock.onopen = function(){
-		//Connection to server started
         showMessage('Welcome back');
     };
 

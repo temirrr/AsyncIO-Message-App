@@ -91,7 +91,7 @@ $(document).ready( function() {
 	}
 
     sock.onopen = function(){
-        showMessage('Connection to server started');
+        showMessage('Welcome back');
     };
 
 
