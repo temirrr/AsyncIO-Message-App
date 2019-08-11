@@ -1,14 +1,22 @@
 # AsyncIO Message App
-This is simple messaging app, in which users can communicate in chatting groups.
+This is simple messaging app with common chatting groups.
 
-TODO: update the UI slightly: message groups buttons + make window scroll down on window additions.
-TODO: add descroption about which technology stack I used here.
+It is based on **aiohttp** framework, which makes it easy to use **asyncio** within the app. **Websockets** were used for the purpose of exchanging multiple messages between client and server. Other core libraries are **aioredis** and **aiopg**.
+
 TODO: record GIFs and add them to GitHib repo.
+
+Go and see DEMO in _Demo_ section below.
 
 If you want to try using it:
 - Clone the repository to your machine.
 - Follow instructions in _Installation Instructions_ section.
 - Then, to run the app, follow instructions in _App Using_ section.
+
+## DEMO
+
+- GIF1
+- GIF2
+- ETC
 
 ## Installation Instructions
 
@@ -26,6 +34,7 @@ Respective instructions for Windows can be found on the Internet.
 
 - Install postgresql on your machine. If you want, you can do it using docker.
 - Run postgresql.
+- You will need to do `CREATE TABLE group_general (messages json NOT NULL);` and `CREATE TABLE group_interns (messages json NOT NULL);` for two of my hard-coded chat-groups. Sorry for not taking care of this within the code, since my main purpose was to learn asyncio and aiohttp.
 - You can change `db_str` variable in "chat/models.py" file's `Message` class to fit your postgresql instance's username, dbname, password, port, etc.
 
 ### Package Installation
@@ -35,8 +44,14 @@ Respective instructions for Windows can be found on the Internet.
 ## App Using
 
 ### Server Start
-- Run "python ./app.py" from the root folder. NOTE: it will occupy one of terminal windows.
+- Run `python ./app.py` from the root folder. NOTE: it will occupy one of terminal windows.
 
 ### Connection to the Server as a Client
 - Open your web-browser. NOTE: the app is mostly adapted for PC and not for mobile devices.
 - Go to "localhost:8080" and the chat will work in case everything is fine with the server. If the server is running on someone-else's machine, then go to "server_machine_ip_address:8080" to connect to the chat. NOTE: you have to be on the same Wi-Fi network.
+
+## Credits
+
+- Thanks to @achimnol for assigning doing this app during "Lablup Bootcamp" (Internship@Lablup Inc., Summer 2019).
+- Thanks to all @lablup members for supporting and helping me.
+- Thanks to all the tutorials and docs our there on the Internet. I got most of the ideas and used the following repo as my template: https://github.com/Crandel/aiohttp (@Crandel).
