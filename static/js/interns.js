@@ -2,9 +2,9 @@ $(document).ready( function() {
 	let userID = '';
 	let sock = {};
 	try{
-		sock = new WebSocket(`ws://${window.location.host}/wsgeneral`)
+		sock = new WebSocket(`ws://${window.location.host}/wsinterns`)
 	} catch {
-		sock = new WebSocket(`wss://${window.location.host}/wsgeneral`)
+		sock = new WebSocket(`wss://${window.location.host}/wsinterns`)
 	}
 
 	function getOwnMessage(msg, time) {
@@ -54,6 +54,7 @@ $(document).ready( function() {
 			if (!!msgObj.user && msgObj.msg) {
 				const id = msgObj.user;
 				const msg = msgObj.msg;
+				const timeString = msgObj.time;
 
 				if (id === userID) {
 					msgHTML = getOwnMessage(msg, timeString)
@@ -62,9 +63,7 @@ $(document).ready( function() {
 				};
 			} else if (!!msgObj.myID) {
 				//SOME DIRTY CODE HERE
-				console.log(userID);
 				displayUserID(msgObj.myID);
-				console.log(userID);
 				return;
 			} else {
 				msgHTML = getGeneralMessage(message);

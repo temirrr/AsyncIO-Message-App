@@ -65,9 +65,7 @@ $(document).ready( function() {
 				};
 			} else if (!!msgObj.myID) {
 				//SOME DIRTY CODE HERE
-				console.log(userID);
 				displayUserID(msgObj.myID);
-				console.log(userID);
 				return;
 			} else {
 				msgHTML = getGeneralMessage(message);
