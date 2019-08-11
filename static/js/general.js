@@ -77,7 +77,7 @@ $(document).ready( function() {
 		}
 
 		msgBox.append(msgHTML);
-		msgBox.scrollTop( msgBox.height() );
+		msgBox.scrollTop( 10000 ); //msgBox.height() didn't work, so I'm usimg large value of 10000 for now
 	}
 
 	//on Enter-key or Send-button click

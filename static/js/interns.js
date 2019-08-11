@@ -74,7 +74,7 @@ $(document).ready( function() {
 		}
 
 		msgBox.append(msgHTML);
-		msgBox.scrollTop( msgBox.height() );
+		msgBox.scrollTop( 10000 );
 	}
 
 	//on Enter-key or Send-button click
