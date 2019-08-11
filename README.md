@@ -1,4 +1,5 @@
 ![AsyncIO Message App](https://github.com/temirrr/AsyncIO-Message-App/tree/master/static/img/logo.png)
+---
 This is simple messaging app with common chatting groups.
 
 It is based on **aiohttp** framework, which makes it easy to use **asyncio** within the app. **Websockets** were used for the purpose of exchanging multiple messages between client and server. Other core libraries are **aioredis** and **aiopg**.
