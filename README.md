@@ -52,6 +52,6 @@ Respective instructions for Windows can be found on the Internet.
 
 ## Credits
 
-- Thanks to @achimnol for assigning doing this app during "Lablup Bootcamp" (Internship@Lablup Inc., Summer 2019).
-- Thanks to all @lablup members for supporting and helping me.
-- Thanks to all the tutorials and docs our there on the Internet. I got most of the ideas and used the following repo as my template: https://github.com/Crandel/aiohttp (@Crandel).
+- Thanks to [@achimnol](https://github.com/achimnol) for assigning doing this app during "Lablup Bootcamp" (Internship@Lablup Inc., Summer 2019).
+- Thanks to all [@lablup](https://github.com/lablup) members for supporting and helping me.
+- Thanks to all the tutorials and docs our there on the Internet. I got most of the ideas and used the following repo as my template: https://github.com/Crandel/aiohttp ([@Crandel](https://github.com/Crandel)).
