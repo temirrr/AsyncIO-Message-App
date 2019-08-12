@@ -1,23 +1,23 @@
 ![AsyncIO Message App](static/img/logo.png)
 ---
+# Demo
+
+![DemoGIF](static/gif/demo.gif)
+
 This is simple messaging app with common chatting groups.
 
 It is based on **aiohttp** framework, which makes it easy to use **asyncio** within the app. **Websockets** were used for the purpose of exchanging multiple messages between client and server. Other core libraries are **aioredis** and **aiopg**.
 
-TODO: record GIFs and add them to GitHib repo.
-
-Go and see DEMO in _Demo_ section below.
+Notice the following functionality in the demo GIF:
+- Messages and time are persistently stored thanks to PostgreSQL.
+- Messages are broadcasted to all users through Websockets.
+- Username **"User736"** is **stored across all chat-groups and on page-refresh** (Thanks to RedisStorage).
+- Minimalistic but functional UI (Bootstrap + jQuery).
 
 If you want to try using it:
 - Clone the repository to your machine.
 - Follow instructions in _Installation Instructions_ section.
 - Then, to run the app, follow instructions in _App Using_ section.
-
-# DEMO
-
-- GIF1
-- GIF2
-- ETC
 
 # Installation Instructions
 
